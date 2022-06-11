@@ -1,53 +1,31 @@
 package com.example.inwentaryzacjabackend.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
-
+@ToString
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="buildings")
 public class Building {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="building_id")
     private Long buildingId;
 
-    @Column(name="building_name")
-    private String buildingName;
+    @Column(name="name")
+    private String name;
 
-    @Column(name="building_nbr")
-    private String buildingNbr;
+    @Column(name="number")
+    private String number;
 
-    public Building() {
-
-    }
-
-    public Long getId() { return buildingId; }
-
-    public void setId(Long id) {
-        this.buildingId = id;
-    }
-
-    public String getBuildingName() {
-        return buildingName;
-    }
-
-    public void setBuildingName(String name) {
-        this.buildingName = buildingName;
-    }
-
-    public String getBuildingNbr() {
-        return buildingNbr;
-    }
-
-    public void setBuildingNbr(String buildingNbr) {
-        this.buildingNbr = buildingNbr;
-    }
-    
-    @Override
-    public String toString() {
-        return "Building [building_id=" + buildingId + ", buildingName=" + buildingName+"]";
-    }
+    @Column(name="address")
+    private String address;
 
 }
 
