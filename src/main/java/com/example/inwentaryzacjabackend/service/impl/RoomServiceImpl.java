@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
@@ -25,5 +27,10 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Room addRoom(Room room) {
         return roomRepository.save(room);
+    }
+
+    @Override
+    public List<Room> getAllRoomsByFloor(Long floorId) {
+        return roomRepository.findByFloorId(floorId);
     }
 }

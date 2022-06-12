@@ -15,7 +15,7 @@ public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="room_id")
+    @Column(name="id")
     private Long id;
 
     @ManyToOne

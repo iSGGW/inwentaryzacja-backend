@@ -2,7 +2,6 @@ package com.example.inwentaryzacjabackend.controller;
 
 import com.example.inwentaryzacjabackend.model.Room;
 import com.example.inwentaryzacjabackend.service.RoomService;
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @RestController
 public class RoomController {
@@ -32,6 +30,8 @@ public class RoomController {
 
         return new ResponseEntity< >(newRoom, HttpStatus.CREATED);
     }*/
+
+
 }
 
 

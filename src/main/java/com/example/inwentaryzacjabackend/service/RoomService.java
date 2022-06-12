@@ -4,10 +4,14 @@ package com.example.inwentaryzacjabackend.service;
 
 import com.example.inwentaryzacjabackend.model.Room;
 
+import java.util.List;
+
 public interface RoomService {
 
     Room getRoom(Long id);
 
     Room addRoom(Room room);
+
+    List<Room> getAllRoomsByFloor(Long floorId);
 
 }
