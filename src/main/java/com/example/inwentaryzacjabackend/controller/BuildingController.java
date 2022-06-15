@@ -31,21 +31,17 @@ public class BuildingController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Building> getBuilding(@PathVariable(name = "id") Long id) {
-        Building building = buildingService.getBuilding(id);
-
-        return new ResponseEntity< >(building, HttpStatus.OK);
+        return buildingService.getBuilding(id);
     }
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Building> addBuilding(@Valid @RequestBody Building building) {
-        Building newBuilding = buildingService.addBuilding(building);
-
-        return new ResponseEntity< >(newBuilding, HttpStatus.CREATED);
+        return buildingService.addBuilding(building);
     }
 
     @GetMapping
-    public List<Building> getAllBuildings() {
+    public ResponseEntity<List<Building>> getAllBuildings() {
         return buildingService.getAllBuildings();
     }
 
@@ -53,7 +49,6 @@ public class BuildingController {
     public ResponseEntity<List<Floor>> getAllFloorsByBuilding(@PathVariable(name ="id") Long id) {
         return new ResponseEntity< >(floorService.getAllFloorsByBuilding(id), HttpStatus.OK);
     }
-
 }
 
 
