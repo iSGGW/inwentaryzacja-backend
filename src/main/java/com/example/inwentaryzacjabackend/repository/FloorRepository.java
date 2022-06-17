@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface FloorRepository extends JpaRepository<Floor, Long> {
-
     List<Floor> findByBuildingId(Long buildingId);
 }

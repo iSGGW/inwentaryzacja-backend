@@ -1,10 +1,8 @@
 package com.example.inwentaryzacjabackend.service.impl;
 
 
-import com.example.inwentaryzacjabackend.enums.AppConstants;
 import com.example.inwentaryzacjabackend.exception.ResourceNotFoundException;
 import com.example.inwentaryzacjabackend.model.Building;
-import com.example.inwentaryzacjabackend.payload.ApiResponse;
 import com.example.inwentaryzacjabackend.repository.BuildingRepository;
 import com.example.inwentaryzacjabackend.service.BuildingService;
 import lombok.AllArgsConstructor;
@@ -12,7 +10,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +19,6 @@ import java.util.List;
 @Service
 public class BuildingServiceImpl implements BuildingService {
 
-    // need to inject building dao
     @Autowired
     private BuildingRepository buildingRepository;
 

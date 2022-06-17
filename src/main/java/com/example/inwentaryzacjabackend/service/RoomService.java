@@ -14,4 +14,5 @@ public interface RoomService {
 
     List<Room> getAllRoomsByFloor(Long floorId);
 
+
 }

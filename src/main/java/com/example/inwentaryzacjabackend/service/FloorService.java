@@ -4,7 +4,6 @@ import com.example.inwentaryzacjabackend.model.Floor;
 
 import java.util.List;
 
-// response entity vs pojo, to be decided
 
 public interface FloorService {
 

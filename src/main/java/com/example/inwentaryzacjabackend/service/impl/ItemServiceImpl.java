@@ -8,7 +8,10 @@ import com.example.inwentaryzacjabackend.service.ItemService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -36,5 +39,10 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item", "id", id));
         // add delete method with permission check
         return null;
+    }
+
+    @Override
+    public List<Item> getAllItemsByRoomId(Long roomId){
+        return itemRepository.findByRoomId(roomId);
     }
 }
