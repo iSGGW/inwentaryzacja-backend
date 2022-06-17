@@ -1,8 +1,10 @@
 package com.example.inwentaryzacjabackend.service.impl;
 
 
+import com.example.inwentaryzacjabackend.enums.AppConstants;
 import com.example.inwentaryzacjabackend.exception.ResourceNotFoundException;
 import com.example.inwentaryzacjabackend.model.Building;
+import com.example.inwentaryzacjabackend.payload.ApiResponse;
 import com.example.inwentaryzacjabackend.repository.BuildingRepository;
 import com.example.inwentaryzacjabackend.service.BuildingService;
 import lombok.AllArgsConstructor;
@@ -25,7 +27,7 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public ResponseEntity<Building> getBuilding(Long id) {
         Building building = buildingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Building", "id", id));
-        return new ResponseEntity<>(building, HttpStatus.CREATED);
+        return new ResponseEntity<>(building, HttpStatus.OK);
     }
 
     @Override
@@ -39,15 +41,24 @@ public class BuildingServiceImpl implements BuildingService {
         List<Building> buildings = buildingRepository.findAll();
         return new ResponseEntity<>(buildings, HttpStatus.OK);
     }
-    
-    /*@Override
+
+    @Override
+    public ResponseEntity<Building> updateBuilding(Long id, Building updatedBuilding) {
+        Building building = buildingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Building", "ID", id));
+        building.setAddress(updatedBuilding.getAddress());
+        building.setName(updatedBuilding.getName());
+        building.setNumber(updatedBuilding.getNumber());
+        buildingRepository.save(building);
+        return new ResponseEntity<>(updatedBuilding, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<ApiResponse> deleteBuilding(Long id) {
         Building building = buildingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.BUILDING, AppConstants.ID, id));
-            buildingRepository.deleteById(id);
-            return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You successfully deleted building"), HttpStatus.OK);
+        buildingRepository.deleteById(id);
+        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You successfully deleted building"), HttpStatus.OK);
 
-        throw new BlogapiException(HttpStatus.UNAUTHORIZED, YOU_DON_T_HAVE_PERMISSION_TO_MAKE_THIS_OPERATION);
-    }*/
+    }
 
 }
 

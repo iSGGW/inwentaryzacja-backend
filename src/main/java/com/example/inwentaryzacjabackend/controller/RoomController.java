@@ -11,10 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RequestMapping("/api/rooms/")
 @NoArgsConstructor
 @RestController
 public class RoomController {
@@ -25,22 +27,16 @@ public class RoomController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping("/room/{id}")
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
+    @GetMapping("/{id}")
     public ResponseEntity<Room> getRoom(@PathVariable(name = "id") Long id) {
-        return new ResponseEntity<>(roomService.getRoom(id), HttpStatus.OK);
+        return roomService.getRoom(id);
     }
 
-    /*
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
-    @GetMapping
-    public ResponseEntity<List<foo>> getAllFoos() {
-        return fooService.getAllBuildings();
-    }*/
-    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
-    @GetMapping("/{id}/rooms")
-    public ResponseEntity<List<Item>> getAllItemsByRoom(@PathVariable(name ="id") Long id) {
-        ResponseEntity<List<Item>> itemsByRoom = new ResponseEntity<>(itemService.getAllItemsByRoomId(id), HttpStatus.OK);
-        return itemsByRoom;
+    @GetMapping("/{id}/items")
+    public ResponseEntity<List<Item>> getAllItemsByRoomId(@PathVariable(name ="id") Long id) {
+        return itemService.getAllItemsByRoom(id);
     }
 
 

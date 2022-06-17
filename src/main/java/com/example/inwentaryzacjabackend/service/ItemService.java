@@ -2,17 +2,21 @@ package com.example.inwentaryzacjabackend.service;
 
 import com.example.inwentaryzacjabackend.model.Item;
 import com.example.inwentaryzacjabackend.payload.ApiResponse;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface ItemService {
 
-    Item getItem(Long id);
+    ResponseEntity<Item> getItem(Long id);
 
-    Item addItem(Item item);
+    ResponseEntity<Item> addItem(Item item);
 
-    // TO DO add user to the method
-    ApiResponse deleteItem(Long id);
+    ResponseEntity<List<Item>> getAllItems();
 
-    List<Item> getAllItemsByRoomId(Long roomId);
+    ResponseEntity<ApiResponse> deleteItem(Long id);
+
+    ResponseEntity<Item> updateItem(Long id, Item item);
+
+    ResponseEntity<List<Item>> getAllItemsByRoom(Long roomId);
 }

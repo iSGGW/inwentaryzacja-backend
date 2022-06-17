@@ -14,9 +14,9 @@ public interface BuildingService {
 
     ResponseEntity<List<Building>> getAllBuildings();
 
-    //ResponseEntity<ApiResponse> deleteBuilding(Long id);
+    ResponseEntity<ApiResponse> deleteBuilding(Long id);
 
-    //ResponseEntity<ApiResponse> editBuilding(Long id);
+    ResponseEntity<Building> updateBuilding(Long id, Building building);
 
 
 

@@ -1,7 +1,9 @@
 package com.example.inwentaryzacjabackend.service.impl;
 
+import com.example.inwentaryzacjabackend.enums.AppConstants;
 import com.example.inwentaryzacjabackend.exception.ResourceNotFoundException;
 import com.example.inwentaryzacjabackend.model.Floor;
+import com.example.inwentaryzacjabackend.payload.ApiResponse;
 import com.example.inwentaryzacjabackend.repository.FloorRepository;
 import com.example.inwentaryzacjabackend.service.FloorService;
 import lombok.AllArgsConstructor;
@@ -23,22 +25,37 @@ public class FloorServiceImpl implements FloorService {
     private FloorRepository floorRepository;
 
     @Override
-    public Floor getFloor(Long id) {
-        return floorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Floor", "id", id));
+    public ResponseEntity<Floor> getFloor(Long id) {
+        Floor floor = floorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Floor", "id", id));
+        return new ResponseEntity<>(floor, HttpStatus.OK);
     }
 
     @Override
-    public Floor addFloor(Floor floor) {
-        return floorRepository.save(floor);
+    public ResponseEntity<Floor> addFloor(Floor floor) {
+        Floor newFloor = floorRepository.save(floor);
+        return new ResponseEntity<>(newFloor, HttpStatus.CREATED);
     }
 
     @Override
-    public List<Floor> getAllFloorsByBuilding(Long buildingId) {
-        return floorRepository.findByBuildingId(buildingId);
+    public ResponseEntity<Floor> updateFloor(Long id, Floor updatedFloor) {
+        Floor floor = floorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Floor", "ID", id));
+        floor.setBuilding(updatedFloor.getBuilding());
+        floor.setLevel(updatedFloor.getLevel());
+        floorRepository.save(floor);
+        return new ResponseEntity<>(updatedFloor, HttpStatus.OK);
     }
 
     @Override
-    public List<Floor> getAllFloors() {
-        return floorRepository.findAll();
+    public ResponseEntity<ApiResponse> deleteFloor(Long id) {
+        Floor floor = floorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.FLOOR, AppConstants.ID, id));
+        floorRepository.deleteById(id);
+        return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You successfully deleted floor"), HttpStatus.OK);
+
+    }
+
+    @Override
+    public ResponseEntity<List<Floor>> getAllFloorsByBuilding(Long buildingId) {
+        List<Floor> floors = floorRepository.findByBuildingId(buildingId);
+        return new ResponseEntity<>(floors, HttpStatus.OK);
     }
 }

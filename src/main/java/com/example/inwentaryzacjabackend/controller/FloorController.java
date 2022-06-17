@@ -6,14 +6,11 @@ import com.example.inwentaryzacjabackend.service.FloorService;
 import com.example.inwentaryzacjabackend.service.RoomService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/api/floors/")
@@ -27,17 +24,27 @@ public class FloorController {
     @Autowired
     private RoomService roomService;
 
+    @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @RequestMapping("/{id}")
     public ResponseEntity<Floor> getFloor(@PathVariable(name = "id") Long id) {
-        Floor floor = floorService.getFloor(id);
+        return floorService.getFloor(id);
+    }
 
-        return new ResponseEntity< >(floor, HttpStatus.OK);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/add")
+    public ResponseEntity<Floor> addFloor(@Valid @RequestBody Floor floor) {
+        return floorService.addFloor(floor);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Floor> updateFloor(@PathVariable(name = "id") Long id, @Valid @RequestBody Floor updatedFloor) {
+        return floorService.updateFloor(id, updatedFloor);
     }
 
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/{id}/rooms")
     public ResponseEntity<List<Room>> getAllRoomsByFloor(@PathVariable(name ="id") Long id) {
-        List<Room> roomsByFloor = roomService.getAllRoomsByFloor(id);
-        return new ResponseEntity<>(roomsByFloor, HttpStatus.OK);
+        return roomService.getAllRoomsByFloor(id);
     }
 }
