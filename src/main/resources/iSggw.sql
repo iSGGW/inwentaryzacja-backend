@@ -8,125 +8,124 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
--- Schema local_db
+-- Schema isggw
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema local_db
+-- Schema isggw
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `local_db` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `local_db` ;
+CREATE SCHEMA IF NOT EXISTS `isggw` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE `isggw` ;
 
 -- -----------------------------------------------------
--- Table `local_db`.`buildings`
+-- Table `isggw`.`buildings`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `local_db`.`buildings` (
-  `id` BIGINT UNIQUE NOT NULL,
-  `address` VARCHAR(255) NULL DEFAULT NULL,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  `number` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = MyISAM
-AUTO_INCREMENT = 8
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `local_db`.`floors`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `local_db`.`floors` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT UNIQUE,
-  `level` VARCHAR(255) NULL DEFAULT NULL,
-  `building_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `FKdhibx5frs3cwiltccr79uks37` (`building_id` ASC) VISIBLE)
-ENGINE = MyISAM
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS `isggw`.`buildings` (
+                                                   `id` BIGINT UNIQUE NOT NULL,
+                                                   `address` VARCHAR(255) NULL DEFAULT NULL,
+    `name` VARCHAR(255) NULL DEFAULT NULL,
+    `number` VARCHAR(255) NULL DEFAULT NULL,
+    PRIMARY KEY (`id`))
+    ENGINE = MyISAM
+    AUTO_INCREMENT = 8
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `local_db`.`items`
+-- Table `isggw`.`floors`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `local_db`.`items` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_by` bigint(19) unsigned DEFAULT NULL,
-  `last_updated_by` bigint(19) unsigned DEFAULT NULL,	
-  `manufacturer` VARCHAR(255) NULL DEFAULT NULL,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  `serial_number` VARCHAR(255) NULL DEFAULT NULL,
-  `status` VARCHAR(255) NULL DEFAULT NULL,
-  `type` VARCHAR(255) NULL DEFAULT NULL,
-  `updated_at` DATE NULL DEFAULT NULL,
-  `room_id` BIGINT NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `FKmgtx1ngyf35vl0pl95w5kdebe` (`room_id` ASC) VISIBLE)
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS `isggw`.`floors` (
+                                                `id` BIGINT NOT NULL AUTO_INCREMENT UNIQUE,
+                                                `level` VARCHAR(255) NULL DEFAULT NULL,
+    `building_id` BIGINT NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `FKdhibx5frs3cwiltccr79uks37` (`building_id` ASC) VISIBLE)
+    ENGINE = MyISAM
+    AUTO_INCREMENT = 2
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `local_db`.`roles`
+-- Table `isggw`.`items`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `local_db`.`roles` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = MyISAM
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS `isggw`.`items` (
+                                               `id` BIGINT NOT NULL AUTO_INCREMENT,
+                                               `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                               `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                               `created_by` bigint(19) unsigned DEFAULT NULL,
+    `last_updated_by` bigint(19) unsigned DEFAULT NULL,
+    `manufacturer` VARCHAR(255) NULL DEFAULT NULL,
+    `name` VARCHAR(255) NULL DEFAULT NULL,
+    `serial_number` VARCHAR(255) NULL DEFAULT NULL,
+    `status` VARCHAR(255) NULL DEFAULT NULL,
+    `type` VARCHAR(255) NULL DEFAULT NULL,
+    `room_id` BIGINT NULL DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `FKmgtx1ngyf35vl0pl95w5kdebe` (`room_id` ASC) VISIBLE)
+    ENGINE = MyISAM
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `local_db`.`rooms`
+-- Table `isggw`.`roles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `local_db`.`rooms` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `room_nbr` VARCHAR(255) NULL DEFAULT NULL,
-  `type` VARCHAR(255) NULL DEFAULT NULL,
-  `floor_id` BIGINT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `FK71tvfklk03awky6oydmacgcoo` (`floor_id` ASC) VISIBLE)
-ENGINE = MyISAM
-AUTO_INCREMENT = 2
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS `isggw`.`roles` (
+                                               `id` BIGINT NOT NULL AUTO_INCREMENT,
+                                               `name` VARCHAR(255) NULL DEFAULT NULL,
+    PRIMARY KEY (`id`))
+    ENGINE = MyISAM
+    AUTO_INCREMENT = 3
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `local_db`.`user_role`
+-- Table `isggw`.`rooms`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `local_db`.`user_role` (
-  `user_id` BIGINT NOT NULL,
-  `role_id` BIGINT NOT NULL,
-  INDEX `FKt7e7djp752sqn6w22i6ocqy6q` (`role_id` ASC) VISIBLE,
-  INDEX `FKj345gk1bovqvfame88rcx7yyx` (`user_id` ASC) VISIBLE)
-ENGINE = MyISAM
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS `isggw`.`rooms` (
+                                               `id` BIGINT NOT NULL AUTO_INCREMENT,
+                                               `room_nbr` VARCHAR(255) NULL DEFAULT NULL,
+    `type` VARCHAR(255) NULL DEFAULT NULL,
+    `floor_id` BIGINT NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `FK71tvfklk03awky6oydmacgcoo` (`floor_id` ASC) VISIBLE)
+    ENGINE = MyISAM
+    AUTO_INCREMENT = 2
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `local_db`.`users`
+-- Table `isggw`.`user_role`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `local_db`.`users` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(255) NOT NULL DEFAULT NULL,
-  `first_name` VARCHAR(255) NOT NULL DEFAULT NULL,
-  `last_name` VARCHAR(255) NOT NULL DEFAULT NULL,
-  `password` VARCHAR(255) NOT NULL DEFAULT NULL,
-  `username` VARCHAR(255) NOT NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = MyISAM
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
+CREATE TABLE IF NOT EXISTS `isggw`.`user_role` (
+                                                   `user_id` BIGINT NOT NULL,
+                                                   `role_id` BIGINT NOT NULL,
+                                                   INDEX `FKt7e7djp752sqn6w22i6ocqy6q` (`role_id` ASC) VISIBLE,
+    INDEX `FKj345gk1bovqvfame88rcx7yyx` (`user_id` ASC) VISIBLE)
+    ENGINE = MyISAM
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `isggw`.`users`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `isggw`.`users` (
+                                               `id` BIGINT NOT NULL AUTO_INCREMENT,
+                                               `email` VARCHAR(255) NOT NULL ,
+    `first_name` VARCHAR(255) NOT NULL,
+    `last_name` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`id`))
+    ENGINE = MyISAM
+    AUTO_INCREMENT = 3
+    DEFAULT CHARACTER SET = utf8mb4
+    COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
