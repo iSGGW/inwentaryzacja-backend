@@ -75,7 +75,6 @@ public class AuthController {
 		if (Boolean.TRUE.equals(userRepository.existsByEmail(signUpRequest.getEmail()))) {
 			throw new ApiException(HttpStatus.BAD_REQUEST, "Email is already taken");
 		}
-		logger.info("i'm making new user");
 
 		String firstName = signUpRequest.getFirstName().toLowerCase();
 
@@ -91,15 +90,12 @@ public class AuthController {
 
 		List<Role> roles = new ArrayList<>();
 
-		logger.info("checking....");
 		if (userRepository.count() == 0) {
-			logger.info("checking first");
 			roles.add(roleRepository.findByName(RoleName.USER)
 					.orElseThrow(() -> new AppException(USER_ROLE_NOT_SET)));
 			roles.add(roleRepository.findByName(RoleName.ADMIN)
 					.orElseThrow(() -> new AppException(USER_ROLE_NOT_SET)));
 		} else {
-			logger.info("checking second");
 			roles.add(roleRepository.findByName(RoleName.USER)
 					.orElseThrow(() -> new AppException(USER_ROLE_NOT_SET)));
 		}

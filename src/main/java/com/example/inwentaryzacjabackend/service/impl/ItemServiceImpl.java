@@ -2,7 +2,6 @@ package com.example.inwentaryzacjabackend.service.impl;
 
 import com.example.inwentaryzacjabackend.enums.AppConstants;
 import com.example.inwentaryzacjabackend.exception.ResourceNotFoundException;
-import com.example.inwentaryzacjabackend.model.Floor;
 import com.example.inwentaryzacjabackend.model.Item;
 import com.example.inwentaryzacjabackend.payload.ApiResponse;
 import com.example.inwentaryzacjabackend.repository.ItemRepository;
@@ -21,7 +20,6 @@ import java.util.List;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    // need to inject item dao
     @Autowired
     private ItemRepository itemRepository;
 
@@ -46,8 +44,13 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public ResponseEntity<Item> updateItem(Long id, Item updatedItem) {
         Item item = itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item", "ID", id));
+        item.setManufacturer(updatedItem.getManufacturer());
+        item.setName(updatedItem.getName());
+        item.setRoom(updatedItem.getRoom());
+        item.setSerialNumber(updatedItem.getSerialNumber());
+        item.setStatus(updatedItem.getStatus());
+        item.setType(updatedItem.getStatus());
         itemRepository.save(item);
-        //tbd
         return new ResponseEntity<>(updatedItem, HttpStatus.OK);
     }
 
