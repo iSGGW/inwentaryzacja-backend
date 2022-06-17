@@ -1,6 +1,5 @@
 package com.example.inwentaryzacjabackend;
 
-import com.example.inwentaryzacjabackend.security.JwtAuthenticationFilter;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,11 +20,6 @@ public class InwentaryzacjaBackendApplication {
     @GetMapping("/hello")
     public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) {
         return String.format("Hello %s!", name);
-    }
-
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter();
     }
 
     @Bean
