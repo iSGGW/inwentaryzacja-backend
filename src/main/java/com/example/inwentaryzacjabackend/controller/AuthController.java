@@ -60,8 +60,18 @@ public class AuthController {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
+		User user = new User();
+
+		String usernameOrEmail = loginRequest.getUsernameOrEmail();
+		if (usernameOrEmail.contains("@")) {
+			user = userRepository.findByEmail(usernameOrEmail).get();
+		} else if (userRepository.findByUsername(usernameOrEmail).isPresent()){
+			user = userRepository.findByUsername(usernameOrEmail).get();
+		}
+
+
 		String jwt = jwtTokenProvider.generateToken(authentication);
-		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, user.getRoles().get(0).getName().toString()));
 	}
 
 	@PostMapping("/signup")
