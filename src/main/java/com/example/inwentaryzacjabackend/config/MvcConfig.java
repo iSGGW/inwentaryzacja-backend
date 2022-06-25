@@ -12,4 +12,12 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/api/auth/signin").setViewName("signin");
     }
 
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("https://20.218.104.224:8443")
+                .allowedMethods("GET", "PUT", "POST", "GET", "OPTIONS")
+                .allowCredentials(false).maxAge(3600);
+    }
+
 }

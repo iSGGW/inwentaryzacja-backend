@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@CrossOrigin(origins = "https://20.218.104.224:8443", maxAge = 3600)
 @RequestMapping("/api/rooms/")
 @NoArgsConstructor
 @RestController

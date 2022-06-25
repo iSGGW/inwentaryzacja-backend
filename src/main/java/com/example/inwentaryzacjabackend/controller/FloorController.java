@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin(origins = "https://20.218.104.224:8443", maxAge = 3600)
 @RequestMapping("/api/floors/")
 @NoArgsConstructor
 @RestController
