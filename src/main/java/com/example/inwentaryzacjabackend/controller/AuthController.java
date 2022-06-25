@@ -59,7 +59,7 @@ public class AuthController {
 				new UsernamePasswordAuthenticationToken(loginRequest.getUsernameOrEmail(), loginRequest.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-
+		// getting role name could be prettier
 		User user = new User();
 
 		String usernameOrEmail = loginRequest.getUsernameOrEmail();

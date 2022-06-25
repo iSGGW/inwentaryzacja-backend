@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `isggw`.`items` (
     `manufacturer` VARCHAR(255) NULL DEFAULT NULL,
     `name` VARCHAR(255) NULL DEFAULT NULL,
     `serial_number` VARCHAR(255) NULL DEFAULT NULL,
-    `status` BIGINT NULL NOT NULL,
+    `status` BIGINT NULL DEFAULT NULL,
     `type` VARCHAR(255) NULL DEFAULT NULL,
     `room_id` BIGINT NULL DEFAULT NULL,
     PRIMARY KEY (`id`),

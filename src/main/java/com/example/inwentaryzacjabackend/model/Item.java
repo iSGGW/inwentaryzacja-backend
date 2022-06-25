@@ -27,7 +27,7 @@ public class    Item {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "room_id", insertable = false)
+    @JoinColumn(name = "room_id")
     private Room room;
 
     @Column(name="name")
