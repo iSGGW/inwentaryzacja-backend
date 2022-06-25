@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/buildings/")
 @NoArgsConstructor
 @RestController
-public class BuildingController {
+public class    BuildingController {
 
     @Autowired
     private BuildingService buildingService;

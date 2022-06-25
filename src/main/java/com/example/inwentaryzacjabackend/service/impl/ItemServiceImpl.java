@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @AllArgsConstructor
@@ -30,7 +31,9 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ResponseEntity<Item> addItem(Item item) {
+    public ResponseEntity<Item> addItem(Item item, String username) {
+        item.setCreatedBy(username);
+        item.setLastUpdatedBy(username);
         Item newItem = itemRepository.save(item);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }
@@ -42,21 +45,26 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ResponseEntity<Item> updateItem(Long id, Item updatedItem) {
+    public ResponseEntity<Item> updateItem(Long id, Item updatedItem, String username) {
         Item item = itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item", "ID", id));
-        item.setManufacturer(updatedItem.getManufacturer());
-        item.setName(updatedItem.getName());
         item.setRoom(updatedItem.getRoom());
+        item.setName(updatedItem.getName());
+        item.setType(updatedItem.getType());
+        item.setManufacturer(updatedItem.getManufacturer());
         item.setSerialNumber(updatedItem.getSerialNumber());
         item.setStatus(updatedItem.getStatus());
-        item.setType(updatedItem.getStatus());
+        item.setCreationDate(updatedItem.getCreationDate());
+        item.setUpdateDate(new Timestamp(System.currentTimeMillis()));
+        item.setCreatedBy(updatedItem.getCreatedBy());
+        item.setLastUpdatedBy(username);
+
         itemRepository.save(item);
         return new ResponseEntity<>(updatedItem, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<ApiResponse> deleteItem(Long id) {
-        Item item = itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.ITEM, AppConstants.ID, id));
+        itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.ITEM, AppConstants.ID, id));
         itemRepository.deleteById(id);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You successfully deleted item"), HttpStatus.OK);
 

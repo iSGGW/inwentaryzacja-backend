@@ -10,13 +10,13 @@ public interface ItemService {
 
     ResponseEntity<Item> getItem(Long id);
 
-    ResponseEntity<Item> addItem(Item item);
+    ResponseEntity<Item> addItem(Item item, String username);
 
     ResponseEntity<List<Item>> getAllItems();
 
     ResponseEntity<ApiResponse> deleteItem(Long id);
 
-    ResponseEntity<Item> updateItem(Long id, Item item);
+    ResponseEntity<Item> updateItem(Long id, Item item, String username);
 
     ResponseEntity<List<Item>> getAllItemsByRoom(Long roomId);
 }

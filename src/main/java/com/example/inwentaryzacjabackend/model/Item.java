@@ -1,22 +1,22 @@
 package com.example.inwentaryzacjabackend.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 
-// TO DO complete model
-// Excel generator
-
 import javax.persistence.*;
-import java.sql.Date;
+import java.math.BigInteger;
+import java.sql.Timestamp;
 
 @ToString
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "items")
 public class    Item {
@@ -43,16 +43,21 @@ public class    Item {
     @Column(name="serial_number")
     private String serialNumber;
 
+    // 1 = na stanie
+    // 2 = brak
+    // 3 = do utylizacji
+    // 4 = zutylizowane
+
     @Column(name="status")
-    private String status;
+    private BigInteger status;
 
     @CreationTimestamp
     @Column(name="created_at")
-    private Date creationDate;
+    private Timestamp creationDate;
 
     @UpdateTimestamp
     @Column(name="updated_at")
-    private Date updateDate;
+    private Timestamp updateDate;
 
     @CreatedBy
     @Column(name="created_by")

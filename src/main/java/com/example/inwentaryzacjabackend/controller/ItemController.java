@@ -2,6 +2,8 @@ package com.example.inwentaryzacjabackend.controller;
 
 import com.example.inwentaryzacjabackend.model.Item;
 import com.example.inwentaryzacjabackend.payload.ApiResponse;
+import com.example.inwentaryzacjabackend.security.CurrentUser;
+import com.example.inwentaryzacjabackend.security.UserPrincipal;
 import com.example.inwentaryzacjabackend.service.ItemService;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +31,15 @@ public class ItemController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<Item> addItem(@Valid @RequestBody Item item) {
-        return itemService.addItem(item);
+    public ResponseEntity<Item> addItem(@Valid @RequestBody Item item, @CurrentUser UserPrincipal currentUser) {
+        return itemService.addItem(item, currentUser.getUsername());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update/{id}")
-    public ResponseEntity<Item> updateItem(@PathVariable(name = "id") Long id, @Valid @RequestBody Item updatedItem) {
-        return itemService.updateItem(id, updatedItem);
+    public ResponseEntity<Item> updateItem(@PathVariable(name = "id") Long id, @Valid @RequestBody Item updatedItem, @CurrentUser UserPrincipal currentUser) {
+        updatedItem.toString();
+        return itemService.updateItem(id, updatedItem, currentUser.getUsername());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
