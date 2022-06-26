@@ -43,7 +43,6 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public ResponseEntity<Room> updateRoom(Long id, Room updatedRoom) {
         Room room = roomRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Room", "ID", id));
-        room.setType(updatedRoom.getType());
         room.setFloor(updatedRoom.getFloor());
         room.setNumber(updatedRoom.getNumber());
         roomRepository.save(room);

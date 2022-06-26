@@ -18,13 +18,8 @@ public class Building {
     @Column(name="id")
     private Long id;
 
-    @Column(name="name")
-    private String name;
-
     @Column(name="number")
     private String number;
 
-    @Column(name="address")
-    private String address;
 }
 

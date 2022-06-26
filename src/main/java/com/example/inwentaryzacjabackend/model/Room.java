@@ -25,6 +25,4 @@ public class Room {
     @Column(name="room_nbr")
     private String number;
 
-    @Column(name="type")
-    private String type;
 }
