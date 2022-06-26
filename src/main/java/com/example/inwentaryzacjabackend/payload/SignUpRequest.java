@@ -5,7 +5,9 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
+/**
+ *Klasa SignUpRequest przechowuje informacje o rejestracji
+ */
 @Data
 public class SignUpRequest {
 	@NotBlank

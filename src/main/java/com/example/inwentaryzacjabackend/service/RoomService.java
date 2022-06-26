@@ -8,6 +8,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+/**
+ *  Interfejs RoomService obsługuje akcje CRUD dla encji Room
+ */
+
 public interface RoomService {
 
     ResponseEntity<Room> getRoom(Long id);

@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+/**
+ *  Interfejs FloorService obsługuje akcje CRUD dla encji Floor
+ */
 
 public interface FloorService {
 

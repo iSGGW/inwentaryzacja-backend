@@ -29,7 +29,9 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ *Klasa AuthController kontoluje autoryzację
+ */
 @CrossOrigin(origins = "https://20.218.104.224:8443", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -52,7 +54,10 @@ public class AuthController {
 
 	@Autowired
 	private JwtTokenProvider jwtTokenProvider;
-
+	/**
+	 *Klasa authenticateUser autoryzuje logowanie użytkownika
+	 * @return Zwraca informację o uwierzytelnieniu
+	 */
 	@PostMapping("/signin")
 	public ResponseEntity<JwtAuthenticationResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		Authentication authentication = authenticationManager.authenticate(
@@ -63,7 +68,10 @@ public class AuthController {
 		String jwt = jwtTokenProvider.generateToken(authentication);
 		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
-
+	/**
+	 *Klasa registerUser autoryzuje rejestrację użytkownika
+	 * @return Zwraca informację o poprawności rejestracji
+	 */
 	@PostMapping("/signup")
 	public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 		if (Boolean.TRUE.equals(userRepository.existsByUsername(signUpRequest.getUsername()))) {
