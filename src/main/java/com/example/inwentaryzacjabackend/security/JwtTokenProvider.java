@@ -8,17 +8,34 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-
+/**
+ * Klasa JwtTokenProvider typu public
+ */
 @Component
+
 public class JwtTokenProvider {
+	/**
+	 * Zmienna LOGGER typu private static final Logger
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenProvider.class);
-
+	/**
+	 * Zmienna jwtSecret typu private String
+	 */
 	@Value(value = "${app.jwtSecret}")
-	private String jwtSecret;
 
+	private String jwtSecret;
+	/**
+	 * Zmienna jwtExpirationInMs typu private int
+	 */
 	@Value(value = "${app.jwtExpirationInMs}")
+
 	private int jwtExpirationInMs;
 
+	/**
+	 * Funkcja generateToken typu public String
+	 * @param authentication Authentication
+	 * @return Funkcja generuje token
+	 */
 	public String generateToken(Authentication authentication) {
 		UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
@@ -33,6 +50,11 @@ public class JwtTokenProvider {
 				.compact();
 	}
 
+	/**
+	 * Funkcja getUserIdFromJWT typu public Long
+	 * @param token String
+	 * @return Funkcja zwraca ID użytkownika
+	 */
 	public Long getUserIdFromJWT(String token) {
 		Claims claims = Jwts.parser()
 				.setSigningKey(jwtSecret)
@@ -42,6 +64,11 @@ public class JwtTokenProvider {
 		return Long.valueOf(claims.getSubject());
 	}
 
+	/**
+	 * Funkcja validateToken typu public boolean
+	 * @param authToken String
+	 * @return Funkcja sprawdza poprawnośc tokenu. Wartość zwracana typu boolean
+	 */
 	public boolean validateToken(String authToken) {
 		try {
 			Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

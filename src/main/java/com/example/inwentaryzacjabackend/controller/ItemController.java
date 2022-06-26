@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-
+/**
+ *Klasa ItemController kontroluje infromacje o przedmiotach
+ */
 @CrossOrigin(origins = "https://20.218.104.224:8443", maxAge = 3600)
 @RequestMapping("/api/items/")
 @NoArgsConstructor
@@ -22,32 +24,47 @@ public class ItemController {
 
     @Autowired
     private ItemService itemService;
-
+    /**
+     *Klasa getItem umożlwia podgląd przedmiotów
+     * @return Zwraca informacje o wybranym przedmiocie
+     */
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<Item> getItem(@PathVariable(name = "id") Long id) {
         return itemService.getItem(id);
     }
-
+    /**
+     *Klasa addItem umożlwia dodanie informacji o przedmiocie
+     * @return Zwraca informację o dodaniu nowego przedmiotu
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<Item> addItem(@Valid @RequestBody Item item, @CurrentUser UserPrincipal currentUser) {
         return itemService.addItem(item, currentUser.getUsername());
     }
-
+    /**
+     *Klasa updateItem umożlwia aktualizację informacji o przedmiocie
+     * @return Zwraca informację o aktualizacji danych
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/update/{id}")
     public ResponseEntity<Item> updateItem(@PathVariable(name = "id") Long id, @Valid @RequestBody Item updatedItem, @CurrentUser UserPrincipal currentUser) {
         updatedItem.toString();
         return itemService.updateItem(id, updatedItem, currentUser.getUsername());
     }
-
+    /**
+     *Klasa deleteItem umożlwia usunięcie dodanego przedmiotu
+     * @return Zwraca informację o usunięciu przedmiotu
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("{id}")
     public ResponseEntity<ApiResponse> deleteItem(@PathVariable(name = "id") Long id) {
         return itemService.deleteItem(id);
     }
-
+    /**
+     *Klasa getAllItems umożlwia podgląd wszystkich przedmiotów
+     * @return Zwraca listę istniejących przedmiotów
+     */
     @PreAuthorize("hasAuthority('USER') or hasAuthority('ADMIN')")
     @GetMapping
     public ResponseEntity<List<Item>> getAllItems() {

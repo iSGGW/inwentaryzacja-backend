@@ -14,28 +14,50 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * Klasa FloorServiceImpl typu public
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
+
 public class FloorServiceImpl implements FloorService {
 
     // need to inject floor dao
+    /**
+     * Zmienna floorRepository typu FloorRepository
+     */
     @Autowired
-    private FloorRepository floorRepository;
 
+    private FloorRepository floorRepository;
+    /**
+     * Funkcja getFloor typu public ResponseEntity<Floor> pobiera Floor używając id
+     * @param id Long
+     * @return floor
+     */
     @Override
+
     public ResponseEntity<Floor> getFloor(Long id) {
         Floor floor = floorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Floor", "id", id));
         return new ResponseEntity<>(floor, HttpStatus.OK);
     }
-
+    /**
+     * Funkcja addFloor typu public ResponseEntity<Floor> dodaje Floor
+     * @param floor Floor
+     * @return newfloor
+     */
     @Override
+
     public ResponseEntity<Floor> addFloor(Floor floor) {
         Floor newFloor = floorRepository.save(floor);
         return new ResponseEntity<>(newFloor, HttpStatus.CREATED);
     }
-
+    /**
+     * Funkcja addFloor typu public ResponseEntity<Floor> aktualizuje Floor
+     * @param id
+     * @param updatedFloor
+     * @return newfloor
+     */
     @Override
     public ResponseEntity<Floor> updateFloor(Long id, Floor updatedFloor) {
         Floor floor = floorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Floor", "ID", id));
@@ -44,7 +66,10 @@ public class FloorServiceImpl implements FloorService {
         floorRepository.save(floor);
         return new ResponseEntity<>(updatedFloor, HttpStatus.OK);
     }
-
+    /**
+     * Funkcja deleteFloor typu public ResponseEntity<ApiResponse> usuwa Floor
+     * @param id
+     */
     @Override
     public ResponseEntity<ApiResponse> deleteFloor(Long id) {
         Floor floor = floorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.FLOOR, AppConstants.ID, id));
@@ -52,7 +77,11 @@ public class FloorServiceImpl implements FloorService {
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You successfully deleted floor"), HttpStatus.OK);
 
     }
-
+    /**
+     * Funkcja getAllFloorsByBuilding typu public ResponseEntity<List<Floor>> dodaje wszystkie piętra po przez budynek
+     * @param buildingId
+     * @return newfloor
+     */
     @Override
     public ResponseEntity<List<Floor>> getAllFloorsByBuilding(Long buildingId) {
         List<Floor> floors = floorRepository.findByBuildingId(buildingId);

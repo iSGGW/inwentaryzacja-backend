@@ -7,12 +7,22 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+/**
+ * Klasa MvcConfig typu public
+ */
 public class MvcConfig implements WebMvcConfigurer {
-
+    /**
+     * Funkcja addViewControllers typu  public void
+     * @param registry ViewControllerRegistry
+     */
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/api/auth/signin").setViewName("signin");
     }
 
+    /**
+     * Funkcja addCorsMappings typu public void
+     * @param registry CorsRegistry
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

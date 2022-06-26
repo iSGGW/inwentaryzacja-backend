@@ -15,21 +15,34 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
-
+/**
+ * Klasa ItemServiceImpl
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @Service
 public class ItemServiceImpl implements ItemService {
-
+    /**
+     * Zmienna itemRepository typu private ItemRepository
+     */
     @Autowired
     private ItemRepository itemRepository;
-
+    /**
+     * Funkcja getItem typu public ResponseEntity<Item>
+     * @param id
+     * @return item
+     */
     @Override
     public ResponseEntity<Item> getItem(Long id) {
         Item item = itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item", "id", id));
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
-
+    /**
+     * Funkcja addItem typu public ResponseEntity<Item>
+     * @param item
+     * @param username
+     * @return newitem
+     */
     @Override
     public ResponseEntity<Item> addItem(Item item, String username) {
         item.setCreatedBy(username);
@@ -37,13 +50,22 @@ public class ItemServiceImpl implements ItemService {
         Item newItem = itemRepository.save(item);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }
-
+    /**
+     * Funkcja getAllItems typu public ResponseEntity<List<Item>>
+     * @return items
+     */
     @Override
     public ResponseEntity<List<Item>> getAllItems() {
         List<Item> items = itemRepository.findAll();
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
-
+    /**
+     * Funkcja updateItem typu public ResponseEntity<Item>
+     * @param id
+     * @param updatedItem
+     * @param username
+     * @return updatedItem
+     */
     @Override
     public ResponseEntity<Item> updateItem(Long id, Item updatedItem, String username) {
         Item item = itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Item", "ID", id));
@@ -62,14 +84,23 @@ public class ItemServiceImpl implements ItemService {
         return new ResponseEntity<>(updatedItem, HttpStatus.OK);
     }
 
+    /**
+     * Funkcja updateItem typu public ResponseEntity<Item>
+     * @param id
+     * @return updatedItem
+     */
     @Override
     public ResponseEntity<ApiResponse> deleteItem(Long id) {
-        itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.ITEM, AppConstants.ID, id));
+        Item item = itemRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(AppConstants.ITEM, AppConstants.ID, id));
         itemRepository.deleteById(id);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You successfully deleted item"), HttpStatus.OK);
 
     }
-
+    /**
+     * Funkcja getAllItemsByRoom typu public ResponseEntity<List<Item>>
+     * @param roomId
+     * @return items
+     */
     @Override
     public ResponseEntity<List<Item>> getAllItemsByRoom(Long roomId) {
         List<Item> items = itemRepository.findByRoomId(roomId);

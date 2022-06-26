@@ -1,7 +1,9 @@
 package com.example.inwentaryzacjabackend.payload;
 
 import lombok.Data;
-
+/**
+ *Klasa JwtAuthenticationResponse przechowuje informacje o uwierzytelnieniu
+ */
 @Data
 public class JwtAuthenticationResponse {
 	private String accessToken;

@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
-
+/**
+ *Klasa ApiResponse przechowuje informacje o responsywności aplikacji
+ */
 @JsonPropertyOrder({
         "success",
         "message"

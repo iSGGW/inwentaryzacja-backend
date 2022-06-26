@@ -3,7 +3,9 @@ package com.example.inwentaryzacjabackend.exception;
 import com.example.inwentaryzacjabackend.payload.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+/**
+ *Klasa ResourceNotFoundException rozszerza klasę RuntimeException i występuje w przypadku błędu odpowiedzi HTTP wskazującego na to, że klient jest w stanie komunikować się z serwerem
+ */
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException {
     private static final long serialVersionUID = 1L;

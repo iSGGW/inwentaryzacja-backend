@@ -6,6 +6,11 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+/**
+ *  Interfejs ItemService obsługuje akcje CRUD dla encji Item
+ */
+
+
 public interface ItemService {
 
     ResponseEntity<Item> getItem(Long id);

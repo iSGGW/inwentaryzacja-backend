@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+/**
+ * Interfejs BuildingService obsługuje akcje CRUD dla encji Building
+ */
 public interface BuildingService {
 
     ResponseEntity<Building> getBuilding(Long id);

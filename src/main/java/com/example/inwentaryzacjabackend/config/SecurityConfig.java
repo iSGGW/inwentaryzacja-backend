@@ -20,15 +20,37 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Klasa SecurityConfig typu public class
+ */
+
 @Configuration
 @EnableWebSecurity(debug = true)
 @EnableGlobalMethodSecurity(
 		prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	/**
+	 * Zmienna customUserDetailsService typu private final CustomUserDetailsServiceImpl
+	 */
 	private final CustomUserDetailsServiceImpl customUserDetailsService;
+
+	/**
+	 * Zmienna unauthorizedHandler typu private final JwtAuthenticationEntryPoint
+	 */
 	private final JwtAuthenticationEntryPoint unauthorizedHandler;
+
+	/**
+	 * Zmienna jwtAuthenticationFilter typu private final JwtAuthenticationFilter
+	 */
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+	/**
+	 * Funkcja SecurityConfig typu public przypisująca konfigurację bezpieczeństwa
+	 * @param userRepository UserRepository
+	 * @param customUserDetailsService CustomUserDetailsServiceImpl
+	 * @param unauthorizedHandler JwtAuthenticationEntryPoint
+	 * @param jwtAuthenticationFilter JwtAuthenticationFilter
+	 */
 	@Autowired
 	public SecurityConfig(UserRepository userRepository, CustomUserDetailsServiceImpl customUserDetailsService,
 						  JwtAuthenticationEntryPoint unauthorizedHandler, JwtAuthenticationFilter jwtAuthenticationFilter) {
@@ -37,6 +59,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
 	}
 
+	/**
+	 * Funkcja configure typu protected void
+	 * @param http HttpSecurity
+	 * @throws Exception
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -59,16 +86,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 
+	/**
+	 * Funkcja configure typu public void
+	 * @param authenticationManagerBuilder
+	 * @throws Exception
+	 */
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.userDetailsService(customUserDetailsService)
 				.passwordEncoder(passwordEncoder());
 	}
 
+	/**
+	 * Funkcja authenticationManagerBean typu public AuthenticationManager
+	 * @return authenticationManagerBean
+	 * @throws Exception
+	 */
 	@Bean(BeanIds.AUTHENTICATION_MANAGER)
-	public AuthenticationManager authenticationManagerBean() throws Exception {
+		public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
 
+	/**
+	 * Funkcja passwordEncoder public PasswordEncoder typu public
+	 * @return BCryptPasswordEncoder
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
