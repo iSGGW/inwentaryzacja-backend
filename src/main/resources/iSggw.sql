@@ -132,4 +132,4 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-insert into roles values (1, 'ADMIN'), (2, 'USER')
+insert into roles values (1, 'ADMIN'), (2, 'USER');
