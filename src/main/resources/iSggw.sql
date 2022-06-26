@@ -22,8 +22,6 @@ USE `isggw` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `isggw`.`buildings` (
                                                    `id` BIGINT UNIQUE NOT NULL,
-                                                   `address` VARCHAR(255) NULL DEFAULT NULL,
-    `name` VARCHAR(255) NULL DEFAULT NULL,
     `number` VARCHAR(255) NULL DEFAULT NULL,
     PRIMARY KEY (`id`))
     ENGINE = MyISAM
@@ -88,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `isggw`.`roles` (
 CREATE TABLE IF NOT EXISTS `isggw`.`rooms` (
                                                `id` BIGINT NOT NULL AUTO_INCREMENT,
                                                `room_nbr` VARCHAR(255) NULL DEFAULT NULL,
-    `type` VARCHAR(255) NULL DEFAULT NULL,
     `floor_id` BIGINT NOT NULL,
     PRIMARY KEY (`id`),
     INDEX `FK71tvfklk03awky6oydmacgcoo` (`floor_id` ASC) VISIBLE)
@@ -133,3 +130,25 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 insert into roles values (1, 'ADMIN'), (2, 'USER');
+
+insert into buildings values
+                          (1, 34),
+                          (2, 22);
+
+insert into floors values
+                       (1, 1, 1),
+                       (2, 2, 1),
+                       (3, 3, 1),
+                       (4, 1, 2),
+                       (5, 2, 2);
+
+insert into user_role values
+                          (4, 2),
+                          (5, 1);
+
+insert into rooms values
+                      (1, 11, 1),
+                      (2, 21, 2),
+                      (3, 31, 3),
+                      (4, 12, 4),
+                      (5, 22, 5);
