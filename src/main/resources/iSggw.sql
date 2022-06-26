@@ -152,3 +152,25 @@ insert into rooms values
                       (3, 31, 3),
                       (4, 12, 4),
                       (5, 22, 5);
+
+insert into buildings values
+                          (1, 34),
+                          (2, 22);
+
+insert into floors values
+                       (1, 1, 1),
+                       (2, 2, 1),
+                       (3, 3, 1),
+                       (4, 1, 2),
+                       (5, 2, 2);
+
+insert into user_role values
+                          (4, 2),
+                          (5, 1);
+
+insert into rooms values
+                      (1, 11, 1),
+                      (2, 21, 2),
+                      (3, 31, 3),
+                      (4, 12, 4),
+                      (5, 22, 5);
