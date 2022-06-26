@@ -45,8 +45,6 @@ public class BuildingServiceImpl implements BuildingService {
     @Override
     public ResponseEntity<Building> updateBuilding(Long id, Building updatedBuilding) {
         Building building = buildingRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Building", "ID", id));
-        building.setAddress(updatedBuilding.getAddress());
-        building.setName(updatedBuilding.getName());
         building.setNumber(updatedBuilding.getNumber());
         buildingRepository.save(building);
         return new ResponseEntity<>(updatedBuilding, HttpStatus.OK);
